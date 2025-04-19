@@ -9,6 +9,9 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.7.4"
+    "@tailwindcss/vite": "^4.1.4",
+    "02-pokemon-static": "file:",
+    "astro": "^5.7.4",
+    "tailwindcss": "^4.1.4"
   }
 }
