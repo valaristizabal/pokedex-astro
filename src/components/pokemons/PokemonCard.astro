@@ -1,15 +1,40 @@
 ---
+//Definimos el tipo de las props que recibe el componente (typescript)
 interface Props {
     name: string;
     url: string;
+    isBig?: boolean;
 }
 
-const { name, url } = Astro.props;
+const { name, url, isBig = false } = Astro.props;
+
+// Extraemos el id del pokemon de la url, ya que la url tiene el formato https://pokeapi.co/api/v2/pokemon/{id}/
+// Por ejemplo: https://pokeapi.co/api/v2/pokemon/1/ => id = 1
 const id = url.split("/").at(-2);
+// Consultamos la url de la imagen del pokémon con el id que extraímos de la url
 const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/` + id + `.png`;
 ---
 
-<div class= "rounded border flex flex-col justify-center items-center p-2 ">
-    <img src={imageUrl} alt="">
-    <span>{name}</span>
-</div>
+<!-- Card donde mostramos la imagen y el nombre  -->
+<!-- En el href le asignamos que al dar clic a cualquier pokémon, rediriga a una página propia
+con la información relevante de dicho pokémon -->
+<!-- Con el class:list quitamos el borde cuando se esté viendo los detalles de un pokémon -->
+<a href=`/pokemons/${name}`
+    class:list={[
+        `rounded flex flex-col justify-center items-center p-2`,
+        {
+            border: !isBig,
+        }
+    ]}>
+
+    <img src={imageUrl} alt="" transition:name=`${name}-image}`>
+
+    <!-- con el class:list hacemos que el css cambie si se cumple la condición de isBig 
+    En este caso hacemos más grande el span cuando isBig es true, es decir, cuando vemos los detalles de un pokémon-->
+    <span class:list={[
+        `capitalize`,
+        {
+            "text-2xl": isBig,
+        }
+    ]}>#{id} {name}</span>
+</a>  

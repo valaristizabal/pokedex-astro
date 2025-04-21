@@ -1,0 +1,52 @@
+---
+import type { GetStaticPaths } from "astro";
+import PokemonCard from "../../components/pokemons/PokemonCard.astro";
+import type { PokemonListResponse } from "../../interfaces/pokemon-list-response";
+import MainLayout from "../../layouts/MainLayout.astro";
+
+/**
+ * Con el getStaticPaths generamos las rutas estáticas para cada página de pokémons
+ * En este caso, conssulta la API de pokémon obteniendo los primeros 151 pokémons (primra gen)
+ * Retrnamos el paginate con los resultados obtenidos y 10 pokémons por página
+ */
+export const getStaticPaths = (async({paginate}) => {
+	const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+	const data = await resp.json() as PokemonListResponse;
+		return paginate(data.results, {pageSize: 20});
+}) satisfies GetStaticPaths;
+
+const title  = "Pokémon static | Home";
+const { page } = Astro.props;
+---
+
+<MainLayout title={title}>
+	<h1 class="text-3xl text-center">Pokédex</h1>
+	<!-- En el section mostramos una Card con la imagen y el nombre de cada pokémon -->
+	<section class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-3 mt-3">
+		{page.data.map((pokemon) => (
+			<PokemonCard name={pokemon.name} url={pokemon.url} />
+		))}
+	</section>
+
+	<!-- Botones para controlar la navegación -->
+	<section class="flex mt-10 gap-2 items-center">
+		<!-- Botón de anterior con un estilo distinto cuando estamos en la primera página -->
+		<a href={page.url.prev} 
+		class:list={[
+			"bg-blue-500 p-2 text-white rounded-md",
+			{
+				"bg-gray-600 text-gray-400": !page.url.prev
+			}
+		]}>Anterior</a>
+		<!-- botón de siguiente con un estilo distinto cuando estamos en la última página -->
+		<a href={page.url.next} 
+		class:list={[
+			"bg-blue-500 p-2 text-white rounded-md",
+			{
+				"bg-gray-600 text-gray-400": !page.url.next
+			}]}>Siguiente</a>
+		<!-- Indice de en que página -->
+		<div class="flex flex-1"></div>
+		<span class="text-xl font-bold">Página {page.currentPage}</span>
+	</section>
+</MainLayout>

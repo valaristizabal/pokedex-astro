@@ -1,0 +1,43 @@
+---
+import type { GetStaticPaths } from "astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import type { PokemonListResponse } from "../../interfaces/pokemon-list-response";
+import PokemonCard from "../../components/pokemons/PokemonCard.astro";
+
+/**
+ * Obtenemos los props que recibe este archivo Astro
+ * `name` viene como parámetro de la URL (ej: /pokemons/pikachu)
+ * `url` es la URL de la API que se le pasa como prop para obtener los datos del Pokémon
+ */
+const { name } = Astro.params;
+const { url } = Astro.props;
+const id = url.split("/").at(-2);
+const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+
+/**
+ * El getStaticPaths se encarga de generar las rutas estáticas para cada pokémon con el nombre que le pasamos por la url
+ * En este caso, conssulta la API de pokémon obteniendo los primeros 151 pokémons (primra gen)  
+ * Para cada ruta, se le asigna el nombre del pokémon y la url de la imagen
+ **/ 
+export const getStaticPaths = (async () => {
+    
+    const resp = await fetch("https://pokeapi.co/api/v2/pokemon?limit=151");
+    const {results} = await resp.json() as PokemonListResponse;
+
+    return results.map( result => ({
+        params: { name: result.name },
+        props: { url: result.url },
+    }))
+}) satisfies GetStaticPaths
+
+---
+<!-- Mostramos el nombre y la imagen en una card de el pokémon seleccionado -->
+<MainLayout title=`Pokémon #${id} ${name}` 
+description=`Información sobre el pokémon ${name}`
+image=`${imageUrl}`>	
+    <section class="mt-10 mx-10 flex flex-col justify-center items-cemter">
+        <a href="/pokemons/1">Regresar</a>
+        <h1 class="text-5xl">{name}</h1>
+        <PokemonCard name={name} url={url} isBig = {true}/>
+    </section>
+</MainLayout>

@@ -2,7 +2,6 @@
 import PokemonCard from "../components/pokemons/PokemonCard.astro";
 import type { PokemonListResponse } from "../interfaces/pokemon-list-response";
 import MainLayout from "../layouts/MainLayout.astro";
-import "../styles/global.css";
 
 const title  = "Pokémon static | Home";
 const resp = await fetch("https://pokeapi.co/api/v2/pokemon");
@@ -11,7 +10,8 @@ const data = await resp.json() as PokemonListResponse;
 
 <MainLayout title={title}>
 	<h1 class="text-3xl text-center">Pokédex</h1>
-	<section class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-5">
+	<!-- En el section mostramos una Card con la imagen y el nombre de cada pokémon -->
+	<section class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-3 mt-3">
 		{data.results.map((pokemon) => (
 			<PokemonCard name={pokemon.name} url={pokemon.url} />
 		))}
