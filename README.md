@@ -18,7 +18,7 @@ Aplicación web hecha con [Astro](https://astro.build/) que muestra una lista de
 1. Clona el repositorio y entra a la carpeta:
 
   ```bash
-    git clone [https://github.com/tu-usuario/tu-repo.git](https://github.com/valaristizabal/pokedex-astro)
+    git clone [https://github.com/valaristizabal/pokedex-astro]
     cd 02-pokemon-static
   ```
 2. Instala dependencias
@@ -29,4 +29,4 @@ Aplicación web hecha con [Astro](https://astro.build/) que muestra una lista de
 ```bash
 npm run dev
 ```
-Accede a al [proyecto](http://localhost:4321/pokemons/1)
+Accede a el [proyecto](http://localhost:4321/pokemons/1)
