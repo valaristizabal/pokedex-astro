@@ -18,7 +18,13 @@ const description = `https://pokeapi.co/api/v2/characteristic/${id}/`
 
 //Consultamos la API de pokémon para obtener la descripción del pokémon
 const respDescription = await fetch(description);
-const dataDescription = await respDescription.json() as PokemonDescriptionResponse;
+
+let dataDescription: PokemonDescriptionResponse | null = null;
+
+if (respDescription.ok) {
+  dataDescription = await respDescription.json() as PokemonDescriptionResponse;
+}
+
 
 /**
  * El getStaticPaths se encarga de generar las rutas estáticas para cada pokémon con el nombre que le pasamos por la url
@@ -46,6 +52,18 @@ image=`${imageUrl}`>
         <h1 class="text-5xl">{name}</h1>
         <PokemonCard url={url} isBig = {true}/>
         <!-- Mostrar la descripción del pokémon en español -->
-        <p class ="text-2xl flex justify-center">{dataDescription.descriptions[5].description}</p>
+        {dataDescription ? (
+            <p class="text-2xl flex justify-center">
+              {
+                dataDescription.descriptions.find(desc => desc.language.name === 'es')?.description 
+                ?? "Descripción no disponible en español."
+              }
+            </p>
+          ) : (
+            <p class="text-2xl flex justify-center text-red-500">
+              Descripción no disponible.
+            </p>
+          )}
+          
     </section>
 </MainLayout>
