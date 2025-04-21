@@ -20,7 +20,7 @@ const { page } = Astro.props;
 ---
 
 <MainLayout title={title}>
-	<h1 class="text-3xl text-center">Pokédex</h1>
+	<h1 class="text-3xl text-center font-bold">Pokédex</h1>
 	<!-- En el section mostramos una Card con la imagen y el nombre de cada pokémon -->
 	<section class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-5 gap-3 mt-3">
 		{page.data.map((pokemon) => (

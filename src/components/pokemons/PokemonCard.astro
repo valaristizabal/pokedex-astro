@@ -1,7 +1,7 @@
 ---
 //Definimos el tipo de las props que recibe el componente (typescript)
 interface Props {
-    name: string;
+    name?: string;
     url: string;
     isBig?: boolean;
 }
@@ -36,5 +36,5 @@ con la información relevante de dicho pokémon -->
         {
             "text-2xl": isBig,
         }
-    ]}>#{id} {name}</span>
+    ]}>{name}</span>
 </a>  

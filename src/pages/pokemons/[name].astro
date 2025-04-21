@@ -3,6 +3,7 @@ import type { GetStaticPaths } from "astro";
 import MainLayout from "../../layouts/MainLayout.astro";
 import type { PokemonListResponse } from "../../interfaces/pokemon-list-response";
 import PokemonCard from "../../components/pokemons/PokemonCard.astro";
+import type { PokemonDescriptionResponse } from "../../interfaces/pokemon-description-response";
 
 /**
  * Obtenemos los props que recibe este archivo Astro
@@ -13,6 +14,11 @@ const { name } = Astro.params;
 const { url } = Astro.props;
 const id = url.split("/").at(-2);
 const imageUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+const description = `https://pokeapi.co/api/v2/characteristic/${id}/`
+
+//Consultamos la API de pokémon para obtener la descripción del pokémon
+const respDescription = await fetch(description);
+const dataDescription = await respDescription.json() as PokemonDescriptionResponse;
 
 /**
  * El getStaticPaths se encarga de generar las rutas estáticas para cada pokémon con el nombre que le pasamos por la url
@@ -38,6 +44,8 @@ image=`${imageUrl}`>
     <section class="mt-10 mx-10 flex flex-col justify-center items-cemter">
         <a href="/pokemons/1">Regresar</a>
         <h1 class="text-5xl">{name}</h1>
-        <PokemonCard name={name} url={url} isBig = {true}/>
+        <PokemonCard url={url} isBig = {true}/>
+        <!-- Mostrar la descripción del pokémon en español -->
+        <p class ="text-2xl flex justify-center">{dataDescription.descriptions[5].description}</p>
     </section>
 </MainLayout>
