@@ -1,47 +1,32 @@
-# Astro Starter Kit: Minimal
+# Pokédex Astro 
 
-```sh
-npm create astro@latest -- --template minimal
+Aplicación web hecha con [Astro](https://astro.build/) que muestra una lista de los primeros 151 pokémon usando la [PokeAPI](https://pokeapi.co/). Puedes ver sus nombres, imágenes y hacer clic para ver más detalles de cada uno.
+
+## 🛠 Tecnologías usadas
+
+- Astro
+- TailwindCSS
+- TypeScript
+- PokeAPI
+
+## 🏙️ Vista previa
+
+![Captura de pantalla 2025-04-20 231055](https://github.com/user-attachments/assets/3faaf64c-59a8-43d7-9bae-e4b6b78c5899)
+
+## 🚀 Instalación
+
+1. Clona el repositorio y entra a la carpeta:
+
+  ```bash
+    git clone [https://github.com/valaristizabal/pokedex-astro]
+    cd 02-pokemon-static
+  ```
+2. Instala dependencias
+```bash
+  npm install
 ```
-
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
-
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+3. Ejecuta el proyecto
+```bash
+npm run dev
 ```
-
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Accede a el [proyecto](http://localhost:4321/pokemons/1)
